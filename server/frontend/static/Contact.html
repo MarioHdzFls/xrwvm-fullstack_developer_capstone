@@ -1,0 +1,91 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <style>
+    /* Estilo adicional para asegurar que las imágenes mantengan proporción */
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+    .contact-info {
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+    <div class="container-fluid">
+      <h2 style="padding-right: 5%;">Dealerships</h2>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: larger;" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" style="font-size: larger;" href="/contact">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="card" style="width: 80%; margin: auto; margin-top:5%; padding: 20px;">
+    <div class="banner" name="contact-header" style="text-align: center; margin-bottom: 20px;">
+      <h1>Contact Us</h1>
+      <p>We are here to help you get behind the wheel of your dream car. Reach out to our specialized team in Mexico.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: row; justify-content: space-around; flex-wrap: wrap;">
+      
+      <div class="card" style="width: 100%; margin-bottom: 20px; background-color: #f0fdfd;">
+        <div class="card-body contact-info">
+          <h3>Our Main Office</h3>
+          <p>📍 Blvd. Manuel Ávila Camacho 150, Lomas de Chapultepec, Mexico City</p>
+          <p>📞 Phone: +52 (55) 5555-1234</p>
+          <p>⏰ Hours: Monday - Friday: 9:00 AM - 7:00 PM | Saturday: 10:00 AM - 3:00 PM</p>
+        </div>
+      </div>
+
+      <div class="card" style="width: 30%;">
+        <img class="card-img-top" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80" alt="Ricardo Mendoza">
+        <div class="card-body">
+          <p class="title">**Ricardo Mendoza**</p>
+          <p>Sales Inquiries</p>
+          <p class="card-text">Contact Ricardo for fleet sales and customized purchase plans.</p>
+          <p><strong>r.mendoza@agencia.mx</strong></p>
+        </div>
+      </div>
+
+      <div class="card" style="width: 30%;">
+        <img class="card-img-top" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80" alt="Ximena Ortiz">
+        <div class="card-body">
+          <p class="title">**Ximena Ortiz**</p>
+          <p>Financing Support</p>
+          <p class="card-text">Ask Ximena about credit approval and insurance options for your new vehicle.</p>
+          <p><strong>x.ortiz@agencia.mx</strong></p>
+        </div>
+      </div>
+
+      <div class="card" style="width: 30%;">
+        <img class="card-img-top" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80" alt="Javier Hernández">
+        <div class="card-body">
+          <p class="title">**Javier Hernández**</p>
+          <p>Technical Service</p>
+          <p class="card-text">Schedule your maintenance or repair services directly with Javier.</p>
+          <p><strong>j.hernandez@agencia.mx</strong></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</html>
