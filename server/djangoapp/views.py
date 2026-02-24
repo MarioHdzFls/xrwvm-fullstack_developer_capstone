@@ -14,6 +14,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import CarMake, CarModel
 from .populate import initiate
+from .restapis import get_request, analyze_review_sentiments, post_review
 
 
 # Get an instance of a logger
@@ -108,29 +109,56 @@ def get_dealerships(request, state="All"):
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request, dealer_id):
-    # if dealer id has been provided
     if(dealer_id):
-        endpoint = "/fetchReviews/dealer/"+str(dealer_id)
+        endpoint = "/fetchReviews/dealer/" + str(dealer_id)
         reviews = get_request(endpoint)
+        
         for review_detail in reviews:
+            # Llamamos a la función de sentimiento
             response = analyze_review_sentiments(review_detail['review'])
-            print(response)
-            review_detail['sentiment'] = response['sentiment']
-        return JsonResponse({"status":200,"reviews":reviews})
-    else:
-        return JsonResponse({"status":400,"message":"Bad Request"})
-
+            
+            # VALIDACIÓN: Solo asignamos si la respuesta no es None
+            if response is not None and 'sentiment' in response:
+                review_detail['sentiment'] = response['sentiment']
+            else:
+                # Valor por defecto si falla el servicio
+                review_detail['sentiment'] = "neutral"
+                
+        return JsonResponse({"status": 200, "reviews": reviews})
 
 # Create a `get_dealer_details` view to render the dealer details
+# djangoapp/views.py
+
 def get_dealer_details(request, dealer_id):
     if(dealer_id):
-        endpoint = "/fetchDealer/"+str(dealer_id)
+        endpoint = "/fetchDealer/" + str(dealer_id)
         dealership = get_request(endpoint)
-        return JsonResponse({"status":200,"dealer":dealership})
+        
+        # El microservicio suele devolver una lista. 
+        # Si es así, tomamos el primer (y único) elemento.
+        if isinstance(dealership, list) and len(dealership) > 0:
+            dealership = dealership[0]
+            
+        return JsonResponse({"status": 200, "dealer": dealership})
     else:
-        return JsonResponse({"status":400,"message":"Bad Request"})
+        return JsonResponse({"status": 400, "message": "Bad Request"})
 
 
 # Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+# djangoapp/views.py
+
+@csrf_exempt
+def add_review(request):
+    # Verificamos que el método sea POST
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            # Asegúrate de haber importado post_review de .restapis
+            response = post_review(data) 
+            return JsonResponse({"status": 200})
+        except Exception as e:
+            logger.error(f"Error en add_review: {e}")
+            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            
+    # Si llega un GET, aquí es donde devuelve el 405
+    return JsonResponse({"status": 405, "message": "Method not allowed"})

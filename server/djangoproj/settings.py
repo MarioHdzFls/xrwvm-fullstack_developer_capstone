@@ -35,6 +35,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
 }
 
+APPEND_SLASH = True
+
 # Application definition
 
 INSTALLED_APPS = [
