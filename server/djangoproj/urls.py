@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
@@ -20,14 +21,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     # 1. ESTA DEBE IR PRIMERO: Es la que entrega los datos JSON
-    path('djangoapp/', include('djangoapp.urls')), 
-    
-    path('about/', TemplateView.as_view(template_name="About.html")),
-    path('contact/', TemplateView.as_view(template_name="Contact.html")),
-    
+    path("djangoapp/", include("djangoapp.urls")),
+    path("about/", TemplateView.as_view(template_name="About.html")),
+    path("contact/", TemplateView.as_view(template_name="Contact.html")),
     # 2. El "atrapa-todo" para React debe ir AL FINAL
     # Si esta ruta está arriba de 'djangoapp/', causará el error que ves
-    re_path(r'^.*$', TemplateView.as_view(template_name="index.html")),
+    re_path(r"^.*$", TemplateView.as_view(template_name="index.html")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
